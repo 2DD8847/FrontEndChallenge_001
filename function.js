@@ -1,14 +1,17 @@
 $(document).ready(function(){ 
 
-	for (var i = 5; i < 10; i++) {
-		//Irgendwas rein
-	};
 
-//	 $(".surveybutton").each(function() {
- //       var hue = 'rgb(' + (Math.floor((256-199)*Math.random()) + 200) + ',' + 
- //       	(Math.floor((256-199)*Math.random()) + 200) + ',' + (Math.floor((256-199)*Math.random()) + 200) + ')';
- //        $(this).css("background-color", hue);
- //   });
-
-
+	//all Surveys from the Mock-Server
+	$.getJSON( "http://surveysmock.apiary.io/api/surveys", function( data ) {
+ 		$.each( data.surveys, function( key, val ) {
+    		$( "#content" ).append("<section class='surveybutton' id='" + val.id + "'>" + "<h2>" + val.title + "</h2>" + val.tagline + "</section>");
+  		});
+	});
 });
+
+
+
+
+
+
+
