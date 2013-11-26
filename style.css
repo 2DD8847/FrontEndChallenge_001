@@ -59,3 +59,5 @@ body {
 .surveybutton:active:after, .surveybutton:hover:after {
 	width: 100%;
 }
+
+/* CLICK ON A BUTTON TO REMOVE THE REST */
