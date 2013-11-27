@@ -1,21 +1,22 @@
 $(document).ready(function(){ 
 
+	var siteRoot = "http://surveysmock.apiary.io/api/surveys"
 
 	//all Surveys from the Mock-Server
-	$.getJSON( "http://surveysmock.apiary.io/api/surveys", function( all ) {
+	$.getJSON( siteRoot, function( all ) {
  		$.each( all.surveys, function( key, val ) {
     		$( "#content" ).append("<div class='surveybutton' id='" + val.id + "'>" + "<h2>" + val.title + "</h2>" + val.tagline + "</div>");
   		});
 	});
 
-//click on a button and get the survey from button-id
+	//click on a button and get the survey from button-id
 	$(".surveybutton").live('click', function() {
     	 var id = $(this).attr("id");
     	 var i = 0;
 
     	 $('.surveybutton').fadeOut(100).remove();
 
-    	 $.getJSON( "http://surveysmock.apiary.io/api/surveys/" + id , function( single ) {
+    	 $.getJSON( siteRoot + "/" + id , function( single ) {
     	 		$( "#content" ).append("<h2>" + single.survey.title + "</h2><p>" + single.survey.tagline + "</p>");
      			$( "#content" ).append("<form class='surveyquestions' id='" + single.survey.id + "'>");
  				$.each( single.survey.questions, function( key, val ) {
@@ -43,6 +44,7 @@ $(document).ready(function(){
 		var completion = [];
 		var surveyID = $(this).attr("id");
 
+
 		$("input[type='radio']:checked").each(function() {
         	var questionID = $(this).attr("name");
         	var radioValue = $(this).attr("value");
@@ -54,17 +56,16 @@ $(document).ready(function(){
         	jsonString = JSON.stringify(item);
 
         	/*put the latest clicked item in the array*/
-        	completion.push(jsonString);  
+        	completion.push(jsonString); 
 
     	});
 
 		/*here is the POST function, after success, remove the html tags*/
 		$.ajax ({
   			type:"POST",
-  			contentType: "application/json",
-  			url:"http://surveysmock.apiary.io/api/surveys/" + surveyID + "/completions",
+  			contentType: "application/json; charset=utf-8",
+  			url: siteRoot + "/" + surveyID + "/completions",
   			dataType: "json",
-  			async: false,
   			data: completion,
   			success: function(){ 
   				$('h2').fadeOut(100).remove();
