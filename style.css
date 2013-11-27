@@ -73,6 +73,6 @@ form {
 }
 
 label {
-	margin-bottom: 10px;
+	display: block; /* add this */
+    padding-top: 5px;
 }
-

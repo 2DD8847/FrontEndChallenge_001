@@ -1,5 +1,5 @@
 $(document).ready(function(){ 
-
+	//API URL
 	var siteRoot = "http://surveysmock.apiary.io/api/surveys"
 
 	//all Surveys from the Mock-Server
@@ -21,7 +21,6 @@ $(document).ready(function(){
      			$( "#content" ).append("<form class='surveyquestions' id='" + single.survey.id + "'>");
  				$.each( single.survey.questions, function( key, val ) {
  					$( "form" ).append("<br /><label class='questions' id='" + val.id + "'>" + val.title + "</label>");
-
  					$.each( val.options, function() {
  						$( "label#" + val.id ).append("<br /><input type='radio' name='" + val.id + "' value='" + val.options[i] + "'>" + val.options[i] + "");
  						i++;	
@@ -31,8 +30,7 @@ $(document).ready(function(){
 	 			 });
 
    		 $( "form" ).append("<br /><input type='submit' value='Submit'>");
- 	 	$( "#content" ).append("</form>");
-
+ 	 	 $( "#content" ).append("</form>");
 		});
 
  	});
@@ -54,8 +52,6 @@ $(document).ready(function(){
 
         	/*put the latest clicked item in the array*/
         	completion.push(item); 
-
-
     	});
 
 		/*here is the POST function, after success, remove the html tags*/
@@ -69,14 +65,10 @@ $(document).ready(function(){
   				$('p').fadeOut(100).remove();
   				$( "form" ).fadeOut(100).remove();
   				$( "#content" ).append("<p>Thanks for answering the survey!</p>");
- 				$( "#content" ).append("<br /><input type='button' value='Back' onClick='window.location.reload()'>");
-
+ 				$( "#content" ).append("<br /><input id='btn' type='button' value='Back' onClick='window.location.reload()'>");
   			},
 
   			error: function(){ alert("error")}
 		});
-
-
-
 	});
 });
