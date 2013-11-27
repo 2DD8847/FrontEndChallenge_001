@@ -29,8 +29,7 @@ $(document).ready(function(){
 					i = 0;
 	 			 });
 
-    	 $( "form" ).append("<br /><input type='button' value='Back' onClick='window.location.reload()'>");
-   		 $( "form" ).append("<input type='submit' value='Submit'>");
+   		 $( "form" ).append("<br /><input type='submit' value='Submit'>");
  	 	$( "#content" ).append("</form>");
 
 		});
@@ -43,7 +42,6 @@ $(document).ready(function(){
 		e.preventDefault();
 		var completion = [];
 		var surveyID = $(this).attr("id");
-		alert(surveyID);
 
 		$("input[type='radio']:checked").each(function() {
         	var questionID = $(this).attr("name");
@@ -65,9 +63,19 @@ $(document).ready(function(){
   			dataType: "json",
   			async: false,
   			data: completion,
-  			success: function(){ alert("success")},
+  			success: function(){ 
+  				$('h2').fadeOut(100).hide();
+  				$('p').fadeOut(100).hide();
+  				$( "form" ).fadeOut(100).hide();
+  				$( "#content" ).append("<p>Thanks for answering the survey!</p>");
+ 				$( "#content" ).append("<br /><input type='button' value='Back' onClick='window.location.reload()'>");
+
+  			},
+
   			error: function(){ alert("error")}
 		});
+
+
 
 	});
 });
