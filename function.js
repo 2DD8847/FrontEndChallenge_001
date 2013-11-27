@@ -18,16 +18,16 @@ $(".surveybutton").live('click', function() {
      var id = $(this).attr("id");
      var i = 0;
 
-     $('.surveybutton').remove();
+     $('.surveybutton').fadeOut(100).hide();
 
      $.getJSON( "http://surveysmock.apiary.io/api/surveys/" + id , function( single ) {
      		$( "#content" ).append("<h2>" + single.survey.title + "</h2><p>" + single.survey.tagline + "</p>");
-     		$( "#content" ).append("<form class='surveyquestions' id='" + single.survey.id + "'>");
+     		$( "#content" ).append("<form class='surveyquestions' id='" + single.survey.id + "' action=''>");
  			$.each( single.survey.questions, function( key, val ) {
- 				$( "#content" ).append("<label class='questions' id='" + val.id + "'>" + val.title + "</label><br>");
+ 				$( "form" ).append("<label class='questions' id='" + val.id + "'>" + val.title + "</label><br />");
 
  				$.each( val.options, function() {
- 					$( "#content" ).append("<input type='radio' name='" + val.id + "' value='" + val.options[i] + "'>" + val.options[i] + "</br>");
+ 					$( "label#" + val.id ).append("<input type='radio' name='" + val.id + "' value='" + val.options[i] + "'>" + val.options[i] + "<br />");
  					i++;	
  				});
 
@@ -36,7 +36,11 @@ $(".surveybutton").live('click', function() {
 
  	 $( "#content" ).append("</form>");
      $( "#content" ).append("<input type='button' value='Back' onClick='window.location.reload()'>");
-     $( "#content" ).append("<button type='button'>Submit</button>");
+     $( "#content" ).append("<input type='submit' value='Submit'>");
 	});
 
  });
+
+
+//submit the form and send it with post to server
+
