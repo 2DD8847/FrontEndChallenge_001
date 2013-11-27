@@ -13,7 +13,7 @@ $(document).ready(function(){
     	 var id = $(this).attr("id");
     	 var i = 0;
 
-    	 $('.surveybutton').fadeOut(100).hide();
+    	 $('.surveybutton').fadeOut(100).remove();
 
     	 $.getJSON( "http://surveysmock.apiary.io/api/surveys/" + id , function( single ) {
     	 		$( "#content" ).append("<h2>" + single.survey.title + "</h2><p>" + single.survey.tagline + "</p>");
@@ -46,27 +46,30 @@ $(document).ready(function(){
 		$("input[type='radio']:checked").each(function() {
         	var questionID = $(this).attr("name");
         	var radioValue = $(this).attr("value");
-
         	item = {};
         	item["questionID"] = questionID;
         	item["radioValue"] = radioValue;
 
-        	completion.push(item);  
+        	/*Serialize the values for the json string*/
+        	jsonString = JSON.stringify(item);
+
+        	/*put the latest clicked item in the array*/
+        	completion.push(jsonString);  
 
     	});
 
-		JSON.stringify(completion);
-
+		/*here is the POST function, after success, remove the html tags*/
 		$.ajax ({
   			type:"POST",
+  			contentType: "application/json",
   			url:"http://surveysmock.apiary.io/api/surveys/" + surveyID + "/completions",
   			dataType: "json",
   			async: false,
   			data: completion,
   			success: function(){ 
-  				$('h2').fadeOut(100).hide();
-  				$('p').fadeOut(100).hide();
-  				$( "form" ).fadeOut(100).hide();
+  				$('h2').fadeOut(100).remove();
+  				$('p').fadeOut(100).remove();
+  				$( "form" ).fadeOut(100).remove();
   				$( "#content" ).append("<p>Thanks for answering the survey!</p>");
  				$( "#content" ).append("<br /><input type='button' value='Back' onClick='window.location.reload()'>");
 
