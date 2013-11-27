@@ -60,12 +60,13 @@ body {
 	width: 100%;
 }
 
-/* CLICK ON A BUTTON TO REMOVE THE REST */
-
-
-
 /* STYLING THE SURVEY FORM */
 .questions {
 	margin-bottom: 20px;
+}
+
+form {
+	background-color: white;
+	padding: 15px;
 }
 
