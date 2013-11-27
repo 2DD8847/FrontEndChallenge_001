@@ -50,23 +50,20 @@ $(document).ready(function(){
         	var radioValue = $(this).attr("value");
         	item = {};
         	item["questionID"] = questionID;
-        	item["radioValue"] = radioValue;
-
-        	/*Serialize the values for the json string*/
-        	jsonString = JSON.stringify(item);
+        	item["value"] = radioValue;
 
         	/*put the latest clicked item in the array*/
-        	completion.push(jsonString); 
+        	completion.push(item); 
+
 
     	});
 
 		/*here is the POST function, after success, remove the html tags*/
 		$.ajax ({
   			type:"POST",
-  			contentType: "application/json; charset=utf-8",
+  			contentType: 'application/json',
   			url: siteRoot + "/" + surveyID + "/completions",
-  			dataType: "json",
-  			data: completion,
+  			data: JSON.stringify(completion),
   			success: function(){ 
   				$('h2').fadeOut(100).remove();
   				$('p').fadeOut(100).remove();
