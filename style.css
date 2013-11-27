@@ -66,7 +66,13 @@ body {
 }
 
 form {
-	background-color: white;
 	padding: 15px;
+	border: 3px solid #fff;
+	color: #fff;
+	font-color: white;
+}
+
+label {
+	margin-bottom: 10px;
 }
 

@@ -19,18 +19,18 @@ $(document).ready(function(){
     	 		$( "#content" ).append("<h2>" + single.survey.title + "</h2><p>" + single.survey.tagline + "</p>");
      			$( "#content" ).append("<form class='surveyquestions' id='" + single.survey.id + "'>");
  				$.each( single.survey.questions, function( key, val ) {
- 					$( "form" ).append("<label class='questions' id='" + val.id + "'>" + val.title + "</label><br />");
+ 					$( "form" ).append("<br /><label class='questions' id='" + val.id + "'>" + val.title + "</label>");
 
  					$.each( val.options, function() {
- 						$( "label#" + val.id ).append("<input type='radio' name='" + val.id + "' value='" + val.options[i] + "'>" + val.options[i] + "<br />");
+ 						$( "label#" + val.id ).append("<br /><input type='radio' name='" + val.id + "' value='" + val.options[i] + "'>" + val.options[i] + "");
  						i++;	
  					});
 
 					i = 0;
 	 			 });
 
-    	 $( "#content" ).append("<input type='button' value='Back' onClick='window.location.reload()'>");
-   		 $( "#content" ).append("<input type='submit' value='Submit'>");
+    	 $( "form" ).append("<br /><input type='button' value='Back' onClick='window.location.reload()'>");
+   		 $( "form" ).append("<input type='submit' value='Submit'>");
  	 	$( "#content" ).append("</form>");
 
 		});
@@ -39,9 +39,11 @@ $(document).ready(function(){
 
 
 	//submit the form and send it with post to server
-	$(".surveyquestions").live('submit',function() {
-		alert();
-		completion = [];
+	$("form").live('submit',function(e) {
+		e.preventDefault();
+		var completion = [];
+		var surveyID = $(this).attr("id");
+		alert(surveyID);
 
 		$("input[type='radio']:checked").each(function() {
         	var questionID = $(this).attr("name");
@@ -51,9 +53,21 @@ $(document).ready(function(){
         	item["questionID"] = questionID;
         	item["radioValue"] = radioValue;
 
-        	completion.push(item);
-        
+        	completion.push(item);  
+
     	});
+
+		JSON.stringify(completion);
+
+		$.ajax ({
+  			type:"POST",
+  			url:"http://surveysmock.apiary.io/api/surveys/" + surveyID + "/completions",
+  			dataType: "json",
+  			async: false,
+  			data: completion,
+  			success: function(){ alert("success")},
+  			error: function(){ alert("error")}
+		});
 
 	});
 });
