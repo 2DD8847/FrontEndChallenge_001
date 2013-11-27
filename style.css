@@ -65,7 +65,7 @@ body {
 
 
 /* STYLING THE SURVEY FORM */
-.surveyquestions {
-	padding: 20px;
+.questions {
+	margin-bottom: 20px;
 }
 

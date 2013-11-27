@@ -24,7 +24,7 @@ $(".surveybutton").live('click', function() {
      		$( "#content" ).append("<h2>" + single.survey.title + "</h2><p>" + single.survey.tagline + "</p>");
      		$( "#content" ).append("<form class='surveyquestions' id='" + single.survey.id + "'>");
  			$.each( single.survey.questions, function( key, val ) {
- 				$( "#content" ).append("<label id='" + val.id + "'>" + val.title + "</label><br>");
+ 				$( "#content" ).append("<label class='questions' id='" + val.id + "'>" + val.title + "</label><br>");
 
  				$.each( val.options, function() {
  					$( "#content" ).append("<input type='radio' name='" + val.id + "' value='" + val.options[i] + "'>" + val.options[i] + "</br>");
